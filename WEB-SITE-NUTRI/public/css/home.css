@@ -1,11 +1,10 @@
-/* resources/css/home.css */
-
 /* Corpo e Layout Geral */
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     background-color: #E1FCF5; /* Cor de fundo suave */
     color: #333; /* Cor de texto escura para boa legibilidade */
+    display: block; /* Mantemos o display padrão 'block' para não afetar outros elementos */
 }
 
 /* Container */
@@ -161,6 +160,7 @@ footer {
     color: white;
     padding: 1.5rem 0;
     text-align: center;
+    margin-top: 1.5rem; /* Distância de outros elementos */
 }
 
 footer h3 {
