@@ -15,15 +15,42 @@
             <div class="logo-text">Clínica Bem Viver</div>
         </div>
         <nav>
-            <a href="#sobre-nos">Sobre Nós</a>
-            <a href="#servicos">Serviços</a>
-            <!-- Link de Login -->
-            <a href="{{ route('usuarios.login') }}" class="login-button">Fazer Login</a> <!-- Alterado para um link -->
+            <a href="sobre-nos">Sobre Nós</a>
+            <!-- Dropdown para Serviços -->
+            <div class="dropdown">
+                <a href="#servicos">Serviços</a>
+                <div class="dropdown-content">
+                    <a href="#medicos">Nossa Equipe</a>
+                    <a href="#avaliacao">Avaliações Nutricionais</a>
+                </div>
+            </div>
+            <!-- Botão de Login -->
+            <form action="/register" method="get" style="margin: 0;">
+                <a href="{{ route('usuarios.login') }}" class="login-button">Fazer Login</a> <!-- Alterado para um link -->
+            </form>
         </nav>
     </header>
 
-     <!-- Conteúdo Principal -->
-     <div class="container">
+    <div class="carousel">
+        <div class="carousel-images">
+            <img src="{{ asset('imgs/carrousel2.jpg') }}" alt="Imagem 1">
+            <img src="{{ asset('imgs/carrousel4.jpg') }}" alt="Imagem 2">
+            <img src="{{ asset('imgs/carrousel3.jpg') }}" alt="Imagem 3">
+        </div>
+        <div class="carousel-buttons">
+            <button id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+            <button id="nextBtn"><i class="fas fa-chevron-right"></i></button>
+        </div>
+        <div class="carousel-indicators">
+            <span data-index="0" class="active"></span>
+            <span data-index="1"></span>
+            <span data-index="2"></span>
+        </div>
+    </div>
+    
+
+    <!-- Conteúdo Principal -->
+    <div class="container">
         <!-- Seção de Cards -->
         <div class="card-container">
             <div class="card">
@@ -54,7 +81,7 @@
                 <img src="{{ asset('imgs/card4.jpg') }}" alt="Nutricionista">
                 <h3>Cálculos on-line</h3>
                 <p>Descubra como está a sua saúde com apenas alguns cliques! Utilize nossa ferramenta para calcular o IMC (Índice de Massa Corporal) e tenha um ponto de partida para entender melhor o equilíbrio do seu corpo.</p>
-                <a href="" class="button">Saiba Mais</a>
+                <a href="https://www.sonutricao.com.br/conteudo/calculos/imc.php" class="button">Saiba Mais</a>
             </div>
             <div class="card">  
                 <img src="{{ asset('imgs/card5.jpg') }}" alt="Receitas">
@@ -106,5 +133,45 @@
             </div>
         </div>
     </footer>
+    <script>
+        const images = document.querySelector('.carousel-images');
+        const indicators = document.querySelectorAll('.carousel-indicators span');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        let currentIndex = 0;
+
+        function updateCarousel() {
+            const offset = -currentIndex * 100; // Move o carrossel
+            images.style.transform = `translateX(${offset}%)`;
+
+            // Atualiza indicadores
+            indicators.forEach((indicator, index) => {
+                indicator.classList.toggle('active', index === currentIndex);
+            });
+        }
+
+        function showNextImage() {
+            currentIndex = (currentIndex + 1) % indicators.length;
+            updateCarousel();
+        }
+
+        function showPrevImage() {
+            currentIndex = (currentIndex - 1 + indicators.length) % indicators.length;
+            updateCarousel();
+        }
+
+        indicators.forEach(indicator => {
+            indicator.addEventListener('click', () => {
+                currentIndex = Number(indicator.dataset.index);
+                updateCarousel();
+            });
+        });
+
+        prevBtn.addEventListener('click', showPrevImage);
+        nextBtn.addEventListener('click', showNextImage);
+
+        // Auto-play a cada 5 segundos
+        setInterval(showNextImage, 5000);
+    </script>
 </body>
 </html>

@@ -25,8 +25,20 @@
             </div>
         @endif
         <nav>
-            <a href="#sobre-nos">Sobre Nós</a>
-            <a href="#servicos">Serviços</a>
+            <a href="sobre-nos">Sobre Nós</a>
+            <!-- Dropdown para Serviços -->
+            <div class="dropdown">
+                <a href="#servicos">Serviços</a>
+                <div class="dropdown-content">
+                    <!-- Link de Agendamento Online modificado -->
+                    <a href="{{ route('agendamento.index') }}">Agendamento Online</a>
+                    <a href="#medicos">Nossa Equipe</a>
+                    <a href="#planos">Planos de Atendimento</a>
+                    <a href="#avaliacao">Avaliações Nutricionais</a>
+                    <!-- Link para Minhas Consultas -->
+                    <a href="{{ route('consultas.index') }}">Minhas Consultas</a>
+                </div>
+            </div>
             <!-- Sempre exibe o botão de Logout se o usuário estiver autenticado -->
             @if (Auth::check())
                 <form action="/logout" method="post">
@@ -37,8 +49,8 @@
         </nav>
     </header>
 
-     <!-- Conteúdo Principal -->
-     <div class="container">
+    <!-- Conteúdo Principal -->
+    <div class="container">
         <!-- Seção de Cards -->
         <div class="card-container">
             <div class="card">

@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
+    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
     /**
@@ -20,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'tipo_usuario',
     ];
 
     /**
@@ -45,20 +47,13 @@ class User extends Authenticatable
         ];
     }
 
-    // Verifica se o usuário é um administrador
-public function IsAdmin()
-    {
+    //verifica se o usuário é um administrador
+    public function isAdmin(){
         return $this->tipo_usuario === 'administrador';
     }
 
-    // Verifica se o usuário é um cliente
-    public function isClient()
-    {
+    //verifica se o usuário é cliente
+    public function isClient(){
         return $this->tipo_usuario === 'cliente';
     }
-
-    
-
 }
-
-
