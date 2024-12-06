@@ -110,13 +110,14 @@ class ConsultaController extends Controller
     // Método para deletar a consulta
     public function destroy($id)
     {
-        $consulta = Consulta::findOrFail($id);
-
-        // Verifica se o usuário tem permissão para deletar
-        if (Auth::user()->tipo_usuario !== 'administrador' && $consulta->user_id !== Auth::id()) {
-            return redirect()->route('consultas.index')->with('error', 'Você não tem permissão para deletar esta consulta.');
+        // Verifica se o usuário é administrador
+        if (Auth::user()->tipo_usuario !== 'administrador') {
+            return redirect()->route('consultas.index')->with('error', 'Você não tem permissão para deletar consultas.');
         }
 
+        $consulta = Consulta::findOrFail($id);
+
+        // Deleta a consulta
         $consulta->delete();
 
         return redirect()->route('consultas.index')->with('success', 'Consulta deletada com sucesso!');
